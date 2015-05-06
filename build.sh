@@ -23,12 +23,17 @@ case "$COMMAND" in
     ######################################
 
     "bootstrap")
-        curl -o realm-objc-latest.zip -L https://static.realm.io/downloads/objc/latest
-        unzip realm-objc-latest.zip
-        mv realm-objc-0.* realm-objc-latest
-        curl -o realm-swift-latest.zip -L https://static.realm.io/downloads/swift/latest
-        unzip realm-swift-latest.zip
-        mv realm-swift-0.* realm-swift-latest
+        # Download zips if there are none
+        shopt -s nullglob
+        set -- *.zip
+        if [ "$#" -eq 0 ]; then
+            for lang in swift objc; do
+                rm -rf realm-$lang-latest
+                curl -o realm-$lang-latest.zip -L https://static.realm.io/downloads/$lang/latest
+                unzip realm-$lang-latest.zip
+                mv realm-$lang-0.* realm-$lang-latest
+            done
+        fi
 
         (
             cd ios/objc/CocoaPodsExample
@@ -38,9 +43,6 @@ case "$COMMAND" in
             cd ios/swift/CocoaPodsExample
             pod install
         )
-
-        # Remove downloaded zips
-        rm -rf *.zip
         exit 0
         ;;
 
