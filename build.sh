@@ -16,6 +16,11 @@ EOF
 
 COMMAND="$1"
 
+xctest() {
+    XCODE_COMMAND="$@"
+    xcodebuild $XCODE_COMMAND clean build test -sdk iphonesimulator || exit 1
+}
+
 case "$COMMAND" in
 
     ######################################
@@ -51,30 +56,30 @@ case "$COMMAND" in
     ######################################
 
     "test-all")
-        ./build.sh test-ios-objc-static
-        ./build.sh test-ios-objc-cocoapods
-        ./build.sh test-ios-swift-dynamic
-        ./build.sh test-ios-swift-cocoapods
+        ./build.sh test-ios-objc-static || exit 1
+        ./build.sh test-ios-objc-cocoapods || exit 1
+        ./build.sh test-ios-swift-dynamic || exit 1
+        ./build.sh test-ios-swift-cocoapods || exit 1
         exit 0
         ;;
 
     "test-ios-objc-static")
-        xcodebuild -project ios/objc/StaticExample/StaticExample.xcodeproj -scheme StaticExample clean build test -sdk iphonesimulator
+        xctest "-project" "ios/objc/StaticExample/StaticExample.xcodeproj" "-scheme" "StaticExample"
         exit 0
         ;;
 
     "test-ios-objc-cocoapods")
-        xcodebuild -workspace ios/objc/CocoaPodsExample/CocoaPodsExample.xcworkspace -scheme CocoaPodsExample clean build test -sdk iphonesimulator
+        xctest "-workspace" "ios/objc/CocoaPodsExample/CocoaPodsExample.xcworkspace" "-scheme" "CocoaPodsExample"
         exit 0
         ;;
 
     "test-ios-swift-dynamic")
-        xcodebuild -project ios/swift/DynamicExample/DynamicExample.xcodeproj -scheme DynamicExample clean build test -sdk iphonesimulator
+        xctest "-project" "ios/swift/DynamicExample/DynamicExample.xcodeproj" "-scheme" "DynamicExample"
         exit 0
         ;;
 
     "test-ios-swift-cocoapods")
-        xcodebuild -workspace ios/swift/CocoaPodsExample/CocoaPodsExample.xcworkspace -scheme CocoaPodsExample clean build test -sdk iphonesimulator
+        xctest "-workspace" "ios/swift/CocoaPodsExample/CocoaPodsExample.xcworkspace" "-scheme" "CocoaPodsExample"
         exit 0
         ;;
 
