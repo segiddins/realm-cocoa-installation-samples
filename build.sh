@@ -5,7 +5,6 @@ cat <<EOF
 Usage: sh $0 command [argument]
 
 command:
-  clean:                    runs `git clean -xdf`
   bootstrap:                downloads product dependencies and runs `pod install` where appropriate
   test-all:                 tests all projects in this repo.
   test-ios-objc-static:     tests iOS Objective-C static example.
@@ -18,22 +17,12 @@ EOF
 COMMAND="$1"
 
 case "$COMMAND" in
-    ######################################
-    # Clean
-    ######################################
-
-    "clean")
-        git clean -xdf
-        exit 0
-        ;;
 
     ######################################
     # Bootsrap
     ######################################
 
     "bootstrap")
-        ./build.sh clean
-
         curl -o realm-objc-latest.zip -L https://static.realm.io/downloads/objc/latest
         unzip realm-objc-latest.zip
         mv realm-objc-0.* realm-objc-latest
