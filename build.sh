@@ -5,6 +5,7 @@ cat <<EOF
 Usage: sh $0 command [argument]
 
 command:
+  clean:                    runs `git clean -xdf`
   bootstrap:                downloads product dependencies and runs `pod install` where appropriate
   test-all:                 tests all projects in this repo.
   test-ios-objc-static:     tests iOS Objective-C static example.

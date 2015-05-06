@@ -2,8 +2,8 @@
 
 This repository contains sample Xcode projects demonstrating how to install
 Realm Objective-C and Realm Swift from all available methods defined in
-<http://realm.io/docs/objc/latest/#installation> and
-<http://realm.io/docs/swift/latest/#installation>.
+<https://realm.io/docs/objc/latest/#installation> and
+<https://realm.io/docs/swift/latest/#installation>.
 
 ## License
 
