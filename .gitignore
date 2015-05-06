@@ -1,8 +1,11 @@
 *~
 .DS_Store
 
-# Realm Downloads
+# Realm Cocoa Installation Samples
 realm-*
+*.xcworkspace
+Pods
+Podfile.lock
 
 # Merge files
 *.orig

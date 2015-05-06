@@ -13,12 +13,20 @@ COMMAND="$1"
 
 case "$COMMAND" in
     ######################################
+    # Clean
+    ######################################
+
+    "clean")
+        git clean -xdf
+        exit 0
+        ;;
+
+    ######################################
     # Bootsrap
     ######################################
 
     "bootstrap")
-        # Clear out any previous downloads
-        rm -rf realm-*
+        ./build.sh clean
 
         curl -o realm-objc-latest.zip -L https://static.realm.io/downloads/objc/latest
         unzip realm-objc-latest.zip
@@ -26,6 +34,11 @@ case "$COMMAND" in
         curl -o realm-swift-latest.zip -L https://static.realm.io/downloads/swift/latest
         unzip realm-swift-latest.zip
         mv realm-swift-0.* realm-swift-latest
+
+        (
+            cd ios/objc/CocoaPodsExample
+            pod install
+        )
 
         # Remove downloaded zips
         rm -rf *.zip
@@ -43,6 +56,11 @@ case "$COMMAND" in
 
     "test-ios-objc-static")
         xcodebuild -project ios/objc/StaticExample/StaticExample.xcodeproj -scheme StaticExample clean build test -sdk iphonesimulator
+        exit 0
+        ;;
+
+    "test-ios-objc-cocoapods")
+        xcodebuild -workspace ios/objc/CocoaPodsExample/CocoaPodsExample.xcworkspace -scheme CocoaPodsExample clean build test -sdk iphonesimulator
         exit 0
         ;;
 
