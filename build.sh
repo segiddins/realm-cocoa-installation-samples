@@ -51,6 +51,8 @@ case "$COMMAND" in
 
     "test-all")
         ./build.sh test-ios-objc-static
+        ./build.sh test-ios-objc-cocoapods
+        ./build.sh test-ios-swift-dynamic
         exit 0
         ;;
 
@@ -61,6 +63,11 @@ case "$COMMAND" in
 
     "test-ios-objc-cocoapods")
         xcodebuild -workspace ios/objc/CocoaPodsExample/CocoaPodsExample.xcworkspace -scheme CocoaPodsExample clean build test -sdk iphonesimulator
+        exit 0
+        ;;
+
+    "test-ios-swift-dynamic")
+        xcodebuild -project ios/swift/DynamicExample/DynamicExample.xcodeproj -scheme DynamicExample clean build test -sdk iphonesimulator
         exit 0
         ;;
 
