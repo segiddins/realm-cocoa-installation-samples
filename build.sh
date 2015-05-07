@@ -8,6 +8,7 @@ command:
   bootstrap:                downloads product dependencies and runs `pod install` where appropriate
   test-all:                 tests all projects in this repo.
   test-ios-objc-static:     tests iOS Objective-C static example.
+  test-ios-objc-dynamic:    tests iOS Objective-C dynamic example.
   test-ios-objc-cocoapods:  tests iOS Objective-C CocoaPods example.
   test-ios-swift-dynamic:   tests iOS Swift dynamic example.
   test-ios-swift-cocoapods: tests iOS Swift CocoaPods example.
@@ -65,6 +66,11 @@ case "$COMMAND" in
 
     "test-ios-objc-static")
         xctest "-project" "ios/objc/StaticExample/StaticExample.xcodeproj" "-scheme" "StaticExample"
+        exit 0
+        ;;
+
+    "test-ios-objc-dynamic")
+        xctest "-project" "ios/objc/DynamicExample/DynamicExample.xcodeproj" "-scheme" "DynamicExample"
         exit 0
         ;;
 
